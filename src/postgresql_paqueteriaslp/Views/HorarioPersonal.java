@@ -1,23 +1,83 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package postgresql_paqueteriaslp.Views;
+import javax.swing.JOptionPane;
+import postgresql_paqueteriaslp.Home;
 
-/**
- *
- * @author lluis
- */
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.sql.Statement;
+import java.sql.ResultSet;
+
 public class HorarioPersonal extends javax.swing.JFrame {
-
-    /**
-     * Creates new form HorarioPersonal
-     */
+    Connection conexion;
+    String pass="postgres";
+    String user ="postgres";
+    DefaultTableModel modelo = new DefaultTableModel();
+    int idSucursalAct;
+    
     public HorarioPersonal() {
         initComponents();
+        estableceConexion();
+        modelo_tabla();
+        fillTabla();
+        limpiaControles();
     }
+    
+    public void estableceConexion()
+    {
+        try {
+            conexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/paqueteriaSLP",user, pass);            
+        }catch(SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al establecer conexion!!!"+ ex);
+        }
+    }
+    
+    public void limpiaControles()
+    {
+        JCBLunes.setSelected(false);
+        JCBMartes.setSelected(false);
+        JCBMiercoles.setSelected(false);
+        JCBJueves.setSelected(false);
+        JCBViernes.setSelected(false);
+        JCBSabado.setSelected(false);
+        JCBDomingo.setSelected(false);
+        JTHoras.setText("");
+         
+    }
+    
+    public void modelo_tabla()
+    {
+        modelo.addColumn("Id Personal");
+        modelo.addColumn("Hoaras");
+        modelo.addColumn("Horario");
+        JTHorarioPersonal.setModel(modelo);
+    }
+    
+    public void fillTabla()
+    {
+        modelo.setRowCount(0);
+        String datos[] = new String[3];
+        
+        try {
+            Statement at = conexion.createStatement();
+            ResultSet rs = at.executeQuery("SELECT * FROM paqueteria.horariopersonal");
+            while(rs.next())
+            {
+                datos[0] = rs.getString("idPersonal");
+                datos[1] = rs.getString("Horas");
+                datos[2] = rs.getString("Horario");
 
+                modelo.addRow(datos);
+            }           
+            rs.close();
+            at.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No pudimos actualizar tu tabla");
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,26 +88,26 @@ public class HorarioPersonal extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        JTHorarioPersonal = new javax.swing.JTable();
+        JCBPersonal = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jCheckBox6 = new javax.swing.JCheckBox();
-        jCheckBox7 = new javax.swing.JCheckBox();
+        JCBLunes = new javax.swing.JCheckBox();
+        JCBMartes = new javax.swing.JCheckBox();
+        JCBMiercoles = new javax.swing.JCheckBox();
+        JCBJueves = new javax.swing.JCheckBox();
+        JCBViernes = new javax.swing.JCheckBox();
+        JCBSabado = new javax.swing.JCheckBox();
+        JCBDomingo = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        JTHoras = new javax.swing.JTextField();
+        JBInsertar = new javax.swing.JButton();
+        JTEliminar = new javax.swing.JButton();
+        JBActualizar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        JTHorarioPersonal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -58,33 +118,33 @@ public class HorarioPersonal extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(JTHorarioPersonal);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        JCBPersonal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel1.setText("Horario");
 
-        jCheckBox1.setText("Lunes");
+        JCBLunes.setText("Lunes");
 
-        jCheckBox2.setText("Martes");
+        JCBMartes.setText("Martes");
 
-        jCheckBox3.setText("Miercoles");
+        JCBMiercoles.setText("Miercoles");
 
-        jCheckBox4.setText("Jueves");
+        JCBJueves.setText("Jueves");
 
-        jCheckBox5.setText("Viernes");
+        JCBViernes.setText("Viernes");
 
-        jCheckBox6.setText("Sabado");
+        JCBSabado.setText("Sabado");
 
-        jCheckBox7.setText("Domingo");
+        JCBDomingo.setText("Domingo");
 
         jLabel2.setText("Horas:");
 
-        jButton1.setText("Insertar");
+        JBInsertar.setText("Insertar");
 
-        jButton2.setText("Eliminar");
+        JTEliminar.setText("Eliminar");
 
-        jButton3.setText("Actualizar");
+        JBActualizar.setText("Actualizar");
 
         jLabel3.setText("Personal:");
 
@@ -98,38 +158,38 @@ public class HorarioPersonal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(JTHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jCheckBox1)
+                                .addComponent(JCBLunes)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox2)
+                                .addComponent(JCBMartes)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox3)
+                                .addComponent(JCBMiercoles)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox4))
+                                .addComponent(JCBJueves))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(JCBPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(JBInsertar)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2))
+                                .addComponent(JTEliminar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton3)
+                                    .addComponent(JBActualizar)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jCheckBox5)
+                                        .addComponent(JCBViernes)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCheckBox6)))
+                                        .addComponent(JCBSabado)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox7))))
+                                .addComponent(JCBDomingo))))
                     .addComponent(jLabel1))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
@@ -138,9 +198,9 @@ public class HorarioPersonal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
+                    .addComponent(JCBPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JBInsertar)
+                    .addComponent(JTEliminar)
                     .addComponent(jLabel3))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -148,20 +208,20 @@ public class HorarioPersonal extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                        .addComponent(JBActualizar)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox3)
-                    .addComponent(jCheckBox4)
-                    .addComponent(jCheckBox5)
-                    .addComponent(jCheckBox6)
-                    .addComponent(jCheckBox7))
+                    .addComponent(JCBLunes)
+                    .addComponent(JCBMartes)
+                    .addComponent(JCBMiercoles)
+                    .addComponent(JCBJueves)
+                    .addComponent(JCBViernes)
+                    .addComponent(JCBSabado)
+                    .addComponent(JCBDomingo))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JTHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
@@ -206,22 +266,22 @@ public class HorarioPersonal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JCheckBox jCheckBox7;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton JBActualizar;
+    private javax.swing.JButton JBInsertar;
+    private javax.swing.JCheckBox JCBDomingo;
+    private javax.swing.JCheckBox JCBJueves;
+    private javax.swing.JCheckBox JCBLunes;
+    private javax.swing.JCheckBox JCBMartes;
+    private javax.swing.JCheckBox JCBMiercoles;
+    private javax.swing.JComboBox<String> JCBPersonal;
+    private javax.swing.JCheckBox JCBSabado;
+    private javax.swing.JCheckBox JCBViernes;
+    private javax.swing.JButton JTEliminar;
+    private javax.swing.JTable JTHorarioPersonal;
+    private javax.swing.JTextField JTHoras;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

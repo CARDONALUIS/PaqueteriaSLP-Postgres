@@ -3,7 +3,7 @@ import javax.swing.JOptionPane;
 import postgresql_paqueteriaslp.Views.*;
 
 public class Home extends javax.swing.JFrame {
-
+    
     public Home() {
         initComponents();
         setLocationRelativeTo(null);//Centrar la ventana       
@@ -66,9 +66,19 @@ public class Home extends javax.swing.JFrame {
         });
 
         jMenuItem2.setText("Personal");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VentanaPersonal(evt);
+            }
+        });
         Prueba.add(jMenuItem2);
 
         jMenuItem3.setText("HorarioPersonal");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VentanaHorarioPersonal(evt);
+            }
+        });
         Prueba.add(jMenuItem3);
 
         jMenuItem4.setText("Asistencia");
@@ -139,6 +149,22 @@ public class Home extends javax.swing.JFrame {
     private void PruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PruebaActionPerformed
         JOptionPane.showMessageDialog(null,"Probando");
     }//GEN-LAST:event_PruebaActionPerformed
+
+    private void VentanaHorarioPersonal(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentanaHorarioPersonal
+        // TODO add your handling code here:
+        HorarioPersonal vHoPer = new HorarioPersonal();
+        vHoPer.setVisible(true);
+        vHoPer.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_VentanaHorarioPersonal
+
+    private void VentanaPersonal(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentanaPersonal
+        // TODO add your handling code here:
+        Personal vPer = new Personal();
+        vPer.setVisible(true);
+        vPer.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_VentanaPersonal
 
     /**
      * @param args the command line arguments
