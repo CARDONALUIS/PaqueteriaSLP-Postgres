@@ -22,9 +22,7 @@ public class TablaSucursal extends javax.swing.JFrame {
         estableceConexion();
         modelo_tabla();
         fillTabla();
-        limpiaControles();
-
-        
+        limpiaControles();        
     }
     
     public void estableceConexion()
