@@ -87,6 +87,11 @@ public class Home extends javax.swing.JFrame {
         Prueba.add(jMenuItem3);
 
         jMenuItem4.setText("Asistencia");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         Prueba.add(jMenuItem4);
 
         jMenuBar1.add(Prueba);
@@ -179,6 +184,12 @@ public class Home extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_VentanaPersonal
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        Asistencia vAsi = new Asistencia();
+        vAsi.setVisible(true);
+        vAsi.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
