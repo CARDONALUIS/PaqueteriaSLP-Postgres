@@ -22,9 +22,7 @@ public class TablaSucursal extends javax.swing.JFrame {
         estableceConexion();
         modelo_tabla();
         fillTabla();
-        limpiaControles();
-
-        
+        limpiaControles();  
     }
     
     public void estableceConexion()
@@ -244,7 +242,8 @@ public class TablaSucursal extends javax.swing.JFrame {
                        
         idSucursalAct = Integer.parseInt(String.valueOf(JTSucursal.getValueAt(seleccionar, 0)));
         JTNombre.setText(String.valueOf(JTSucursal.getValueAt(seleccionar, 1)));
-        JTDireccion.setText(String.valueOf(JTSucursal.getValueAt(seleccionar, 2)));               
+        JTDireccion.setText(String.valueOf(JTSucursal.getValueAt(seleccionar, 2))); 
+  
     }//GEN-LAST:event_JTSucursalMouseClicked
 
     private void JBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBEliminarActionPerformed

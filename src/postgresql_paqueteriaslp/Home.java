@@ -19,7 +19,7 @@ public class Home extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         VenTabSucursal = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuTelefono = new javax.swing.JMenuItem();
         Prueba = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -53,8 +53,13 @@ public class Home extends javax.swing.JFrame {
         });
         jMenu1.add(VenTabSucursal);
 
-        jMenuItem1.setText("Telefono");
-        jMenu1.add(jMenuItem1);
+        jMenuTelefono.setText("Telefono");
+        jMenuTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuTelefonoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuTelefono);
 
         jMenuBar1.add(jMenu1);
 
@@ -140,6 +145,13 @@ public class Home extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null,"Probando");
     }//GEN-LAST:event_PruebaActionPerformed
 
+    private void jMenuTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuTelefonoActionPerformed
+        TablaTelefono vTel = new TablaTelefono();
+        vTel.setVisible(true);
+        vTel.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_jMenuTelefonoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -185,7 +197,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
@@ -196,5 +207,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem jMenuTelefono;
     // End of variables declaration//GEN-END:variables
 }
