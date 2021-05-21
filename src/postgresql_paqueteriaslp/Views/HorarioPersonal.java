@@ -74,7 +74,7 @@ public class HorarioPersonal extends javax.swing.JFrame {
     public void modelo_tabla()
     {
         modelo.addColumn("Id Personal");
-        modelo.addColumn("Hoaras");
+        modelo.addColumn("Horas");
         modelo.addColumn("Horario");
         JTHorarioPersonal.setModel(modelo);
     }
