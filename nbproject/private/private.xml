@@ -5,7 +5,10 @@
         <group>
             <file>file:/C:/Users/Luis%20Pablo%20Rocha/Desktop/GITHUB/PaqueteriaSLP-Postgres/src/postgresql_paqueteriaslp/Views/TablaTelefono.java</file>
             <file>file:/C:/Users/Luis%20Pablo%20Rocha/Desktop/GITHUB/PaqueteriaSLP-Postgres/src/postgresql_paqueteriaslp/Views/TablaSucursal.java</file>
-            <file>file:/C:/Users/Luis%20Pablo%20Rocha/Desktop/GITHUB/PaqueteriaSLP-Postgres/src/postgresql_paqueteriaslp/Home.java</file>
+            <file>file:/C:/Users/lluis/Documents/GitHub/PaqueteriaSLP-Postgres/src/postgresql_paqueteriaslp/Views/HorarioPersonal.java</file>
+            <file>file:/C:/Users/lluis/Documents/GitHub/PaqueteriaSLP-Postgres/src/postgresql_paqueteriaslp/Views/Personal.java</file>
+            <file>file:/C:/Users/lluis/Documents/GitHub/PaqueteriaSLP-Postgres/src/postgresql_paqueteriaslp/Views/Asistencia.java</file>
+            <file>file:/C:/Users/lluis/Documents/GitHub/PaqueteriaSLP-Postgres/src/postgresql_paqueteriaslp/Home.java</file>
         </group>
     </open-files>
 </project-private>

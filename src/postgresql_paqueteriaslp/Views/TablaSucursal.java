@@ -23,6 +23,7 @@ public class TablaSucursal extends javax.swing.JFrame {
         modelo_tabla();
         fillTabla();
         limpiaControles();  
+
     }
     
     public void estableceConexion()
