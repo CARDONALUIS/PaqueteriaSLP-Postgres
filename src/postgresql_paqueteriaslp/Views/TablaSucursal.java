@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 
 public class TablaSucursal extends javax.swing.JFrame {
     Connection conexion;
-    String pass="postgres";
+    String pass="Nada2254";
     String user ="postgres";
     DefaultTableModel modelo = new DefaultTableModel();
     int idSucursalAct;
