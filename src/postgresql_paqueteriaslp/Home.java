@@ -119,6 +119,11 @@ public class Home extends javax.swing.JFrame {
         jMenu4.setText("Ruta");
 
         jMenuItem9.setText("Ruta");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem9);
 
         jMenuItem10.setText("AsignacionDeRutas");
@@ -190,6 +195,13 @@ public class Home extends javax.swing.JFrame {
         vAsi.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        TablaRuta tRuta = new TablaRuta();
+        tRuta.setVisible(true);
+        tRuta.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     /**
      * @param args the command line arguments
