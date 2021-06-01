@@ -12,18 +12,28 @@ import java.sql.ResultSet;
 
 public class TablaSucursal extends javax.swing.JFrame {
     Connection conexion;
-    String pass="Nada2254";
-    String user ="postgres";
+    String pass;
+    String user;
     DefaultTableModel modelo = new DefaultTableModel();
     int idSucursalAct;
+    public boolean permiso = true;
 
     public TablaSucursal() {
         initComponents();
+         
+
+    }
+    
+    public void setUserYCon(String _user,String _pass)
+    {
+        pass = _pass;
+        user = _user;
+         
         estableceConexion();
         modelo_tabla();
         fillTabla();
-        limpiaControles();  
-
+        limpiaControles(); 
+        
     }
     
     public void estableceConexion()
@@ -68,7 +78,8 @@ public class TablaSucursal extends javax.swing.JFrame {
             rs.close();
             at.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No pudimos actualizar tu tabla");
+            JOptionPane.showMessageDialog(null, "No pudimos actualizar tu tabla: "+e);
+            permiso = false;
         }
     }
 

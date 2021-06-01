@@ -28,18 +28,28 @@ import postgresql_paqueteriaslp.Home;
 public class AsignacionRuta extends javax.swing.JFrame {
 
     Connection conexion;
-    String pass="postgres";
-    String user ="postgres";
+    String pass;
+    String user;
     DefaultTableModel modelo = new DefaultTableModel();
     int idasignacionruta = -1;
+    public boolean permiso = true;
     
     public AsignacionRuta() {
         initComponents();
+        
+    }
+    
+    public void setUserYCon(String _user,String _pass)
+    {
+        pass = _pass;
+        user = _user;
+         
         estableceConexion();
         cargaPersonal();
         cargaRutas();
         modelo_tabla();
         fillTabla();
+
     }
     
     public void modelo_tabla()
@@ -89,6 +99,7 @@ public class AsignacionRuta extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No pudimos actualizar tu tabla "+ e);
+            permiso = false;
         }
     }
     
@@ -98,6 +109,7 @@ public class AsignacionRuta extends javax.swing.JFrame {
             conexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/paqueteriaSLP",user, pass);            
         }catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al establecer conexion!!!"+ ex);
+            
         }
     }
     
@@ -128,6 +140,8 @@ public class AsignacionRuta extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No pudimos agregar el personal");
+            permiso = false;
+           
         }
     }
     
@@ -151,6 +165,8 @@ public class AsignacionRuta extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No pudimos agregar el personal");
+            permiso = false;
+            
         }
     }
     
@@ -172,6 +188,8 @@ public class AsignacionRuta extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No pudimos obtener el idpersonal");
+            permiso = false;
+            
         }
         
         return idPersonal;

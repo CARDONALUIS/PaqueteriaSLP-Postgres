@@ -3,11 +3,13 @@ import javax.swing.JOptionPane;
 import postgresql_paqueteriaslp.Views.*;
 
 public class Home extends javax.swing.JFrame {
+    public boolean cerrarVentana; 
     
     public Home() {
         initComponents();
         setLocationRelativeTo(null);//Centrar la ventana       
     }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -199,10 +201,20 @@ public class Home extends javax.swing.JFrame {
 
     //De esta manera se abre una JFrame que seria la ventan de la tabla de sucursal
     private void VenTabSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VenTabSucursalActionPerformed
+        String user = JTUsuario.getText();
+        String pass = JTContraseña.getText();
         TablaSucursal vSuc = new TablaSucursal();
         vSuc.setVisible(true);
         vSuc.setLocationRelativeTo(null);
         this.dispose();
+        
+        vSuc.setUserYCon(user, pass);
+        
+        if(!vSuc.permiso)
+        {
+            this.setVisible(true);
+            vSuc.dispose();
+        } 
     }//GEN-LAST:event_VenTabSucursalActionPerformed
 
     private void PruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PruebaActionPerformed
@@ -211,44 +223,90 @@ public class Home extends javax.swing.JFrame {
 
 
     private void jMenuTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuTelefonoActionPerformed
+        String user = JTUsuario.getText();
+        String pass = JTContraseña.getText();
         TablaTelefono vTel = new TablaTelefono();
         vTel.setVisible(true);
         vTel.setLocationRelativeTo(null);
         this.dispose();
+        
+        vTel.setUserYCon(user, pass);
+        
+        if(!vTel.permiso)
+        {
+            this.setVisible(true);
+            vTel.dispose();
+        }
     }//GEN-LAST:event_jMenuTelefonoActionPerformed
 
     private void VentanaHorarioPersonal(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentanaHorarioPersonal
         // TODO add your handling code here:
+        String user = JTUsuario.getText();
+        String pass = JTContraseña.getText();
         HorarioPersonal vHoPer = new HorarioPersonal();
         vHoPer.setVisible(true);
         vHoPer.setLocationRelativeTo(null);
         this.dispose();
+        
+        vHoPer.setUserYCon(user, pass);
+        
+        if(!vHoPer.permiso)
+        {
+            this.setVisible(true);
+            vHoPer.dispose();
+        } 
     }//GEN-LAST:event_VentanaHorarioPersonal
 
     private void VentanaPersonal(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentanaPersonal
         // TODO add your handling code here:
         String user = JTUsuario.getText();
         String pass = JTContraseña.getText();
-        Personal vPer = new Personal();
-        vPer.setUserYCon(user, pass);
+        Personal vPer = new Personal();          
         vPer.setVisible(true);
         vPer.setLocationRelativeTo(null);
         this.dispose();
+        
+        vPer.setUserYCon(user, pass);
+        
+        if(!vPer.permiso)
+        {
+            this.setVisible(true);
+            vPer.dispose();
+        }        
     }//GEN-LAST:event_VentanaPersonal
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        String user = JTUsuario.getText();
+        String pass = JTContraseña.getText();
         Asistencia vAsi = new Asistencia();
         vAsi.setVisible(true);
         vAsi.setLocationRelativeTo(null);
         this.dispose();
+        
+        vAsi.setUserYCon(user, pass);
+        if(!vAsi.permiso)
+        {
+            this.setVisible(true);
+            vAsi.dispose();
+        } 
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void VentanaPago(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentanaPago
-
+        String user = JTUsuario.getText();
+        String pass = JTContraseña.getText();
         Pago vPag = new Pago();
         vPag.setVisible(true);
         vPag.setLocationRelativeTo(null);
         this.dispose();
+        
+        vPag.setUserYCon(user, pass);
+        
+        if(!vPag.permiso)
+        {
+            this.setVisible(true);
+            vPag.dispose();
+        } 
+        
     }//GEN-LAST:event_VentanaPago
 
     private void JTContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTContraseñaActionPerformed
@@ -256,31 +314,74 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_JTContraseñaActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        String user = JTUsuario.getText();
+        String pass = JTContraseña.getText();
+        
         TablaRuta tRuta = new TablaRuta();
         tRuta.setVisible(true);
         tRuta.setLocationRelativeTo(null);
         this.dispose();
+        
+        tRuta.setUserYCon(user, pass);
+        
+        if(!tRuta.permiso)
+        {
+            this.setVisible(true);
+            tRuta.dispose();
+        } 
+        
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void btnViewCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewCamionActionPerformed
+         //ESTA EVENTO NO SIRVE
+        /*
         Camion vAsi = new Camion();
         vAsi.setVisible(true);
         vAsi.setLocationRelativeTo(null);
         this.dispose();
+        
+        vAsi.setUserYCon(user, pass);
+        
+        JOptionPane.showMessageDialog(null, "PANTALLA DESPUES" + vAsi.permiso);
+        if(!vAsi.permiso)
+        {
+            JOptionPane.showMessageDialog(null, "Entre a ocultarla");
+            this.setVisible(true);
+            vAsi.dispose();
+        } */
     }//GEN-LAST:event_btnViewCamionActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        String user = JTUsuario.getText();
+        String pass = JTContraseña.getText();
         Camion vAsi = new Camion();
         vAsi.setVisible(true);
         vAsi.setLocationRelativeTo(null);
         this.dispose();
+        
+        vAsi.setUserYCon(user, pass);
+        
+        if(!vAsi.permiso)
+        {
+            this.setVisible(true);
+            vAsi.dispose();
+        } 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        AsignacionRuta vRuta = new AsignacionRuta();
+        String user = JTUsuario.getText();
+        String pass = JTContraseña.getText();
+        AsignacionRuta vRuta = new AsignacionRuta();  
         vRuta.setVisible(true);
         vRuta.setLocationRelativeTo(null);
         this.dispose();
+        
+        vRuta.setUserYCon(user, pass);
+        if(!vRuta.permiso)
+        {
+            this.setVisible(true);
+            vRuta.dispose();
+        } 
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
 

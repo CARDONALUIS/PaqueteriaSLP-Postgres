@@ -15,17 +15,27 @@ import java.util.Date;
 
 public class Asistencia extends javax.swing.JFrame {
     Connection conexion;
-    String pass="postgres";
-    String user ="postgres";
+    String pass;
+    String user;
     DefaultTableModel modelo = new DefaultTableModel();
     int idPersonal;
+    public boolean permiso = true;
     
     public Asistencia() {
         initComponents();
+        
+    }
+    
+    public void setUserYCon(String _user,String _pass)
+    {
+        pass = _pass;
+        user = _user;
+         
         estableceConexion();
         modelo_tabla();
         fillTabla();
         limpiaControlesYAddLlaves();
+        
     }
     
     public void estableceConexion()
@@ -62,6 +72,7 @@ public class Asistencia extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No pudimos agregar los items");
+            permiso = false;
         }
     }
     
@@ -95,6 +106,7 @@ public class Asistencia extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No pudimos actualizar tu tabla");
+            permiso = false;
         }
     }
     
@@ -115,6 +127,7 @@ public class Asistencia extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No pudimos econtrar la paersona a agregar");
+            permiso = false;
         }
     }
     

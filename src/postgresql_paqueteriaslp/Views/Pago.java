@@ -14,8 +14,8 @@ import java.util.Date;
 
 public class Pago extends javax.swing.JFrame {
     Connection conexion;
-    String pass="postgres";
-    String user ="postgres";
+    String pass;
+    String user ;
     DefaultTableModel modelo = new DefaultTableModel();
     int idPersonal;
     int idPagoActual;
@@ -24,13 +24,22 @@ public class Pago extends javax.swing.JFrame {
     int diasAPagar;
     String firstDayMonth;
     String lastDayMonth;
+    public boolean permiso = true;
     
     public Pago() {
         initComponents();
+        
+    }
+    
+    public void setUserYCon(String _user,String _pass)
+    {
+        pass = _pass;
+        user = _user;
+         
         estableceConexion();
         modelo_tabla();
         fillTabla();
-        limpiaControlesYAddLlaves();
+        limpiaControlesYAddLlaves();      
     }
 
      public void estableceConexion()
@@ -93,6 +102,7 @@ public class Pago extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No pudimos agregar los items");
+            permiso = false;
         }
     }
     
@@ -131,7 +141,8 @@ public class Pago extends javax.swing.JFrame {
             rs.close();
             at.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No pudimos actualizar tu tabla");
+            JOptionPane.showMessageDialog(null, "No pudimos actualizar tu tabla "+ e);
+            permiso = false;
         }
     }
     
@@ -153,6 +164,7 @@ public class Pago extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No pudimos econtrar la paersona a agregar");
+            permiso = false;
         }
         
 

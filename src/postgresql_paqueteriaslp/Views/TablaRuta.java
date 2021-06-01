@@ -17,16 +17,25 @@ import java.sql.ResultSet;
  */
 public class TablaRuta extends javax.swing.JFrame {
     Connection conexion;
-    String pass="postgres";
-    String user ="postgres";
+    String pass;
+    String user;
     DefaultTableModel modelo = new DefaultTableModel();
     public int idRuta=0;
     public int sucOrSelected=0;
     public int sucDesSelected=0;
     public int idCamion=0;
+    public boolean permiso = true;
 
     public TablaRuta() {
         initComponents();
+       
+    }
+    
+    public void setUserYCon(String _user,String _pass)
+    {
+        pass = _pass;
+        user = _user;
+         
         estableceConexion();
         modelo_tabla();
         fillTabla();
@@ -37,6 +46,7 @@ public class TablaRuta extends javax.swing.JFrame {
         cambiaItemsComboBoxDestino();
         }
         });
+        
     }
     
     public void cambiaItemsComboBoxDestino(){
@@ -74,7 +84,12 @@ public class TablaRuta extends javax.swing.JFrame {
         jComboBoxSucOr = new javax.swing.JComboBox<>();
         jComboBoxSucDes = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabelTel.setText("TABLA DE RUTA");
 
@@ -180,13 +195,12 @@ public class TablaRuta extends javax.swing.JFrame {
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jComboBoxSucOr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(JBModRuta)))
+                            .addComponent(jComboBoxSucOr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JBModRuta))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jComboBoxSucDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxSucDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
@@ -275,6 +289,7 @@ public class TablaRuta extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No pudimos actualizar tu tabla");
+            permiso = false;
         }
     }
     public void obtenIDSucursalComboBox(){
@@ -313,6 +328,7 @@ public class TablaRuta extends javax.swing.JFrame {
                     at.close();
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "No pudimos econtrar el camion a agregar");
+                    permiso = false;
                 }
             }
         }
@@ -366,6 +382,13 @@ public class TablaRuta extends javax.swing.JFrame {
         jComboBoxSucDes.setSelectedItem(String.valueOf(JTableRuta.getValueAt(seleccionar, 6)+"-"+JTableRuta.getValueAt(seleccionar, 7)));
     }//GEN-LAST:event_JTableRutaMouseClicked
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        Home vH = new Home();
+        vH.setVisible(true);
+        this.dispose(); 
+    }//GEN-LAST:event_formWindowClosing
+
     public void agregaComboBoxSucursales()
     {
         String datos[] = new String[2];
@@ -401,6 +424,7 @@ public class TablaRuta extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No pudimos agregar los items");
+            permiso = false;
         }
     }
     
@@ -426,6 +450,7 @@ public class TablaRuta extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No pudimos agregar los items");
+            permiso = false;
         }
     }
     /**

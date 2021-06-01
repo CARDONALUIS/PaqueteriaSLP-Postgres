@@ -55,7 +55,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="JCNacimiento" min="-2" pref="154" max="-2" attributes="0"/>
+                      <Component id="JCNacimiento" min="-2" pref="148" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -183,7 +183,7 @@
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   <Component id="JCNacimiento" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="21" max="32767" attributes="0"/>
+              <EmptySpace pref="17" max="32767" attributes="0"/>
               <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -262,8 +262,6 @@
         <Property name="text" type="java.lang.String" value="Fecha_Nacimiento:"/>
       </Properties>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="JCNacimiento">
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
         <Property name="text" type="java.lang.String" value="Direccion:"/>
@@ -328,6 +326,8 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBActualizarActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="JCNacimiento">
     </Component>
   </SubComponents>
 </Form>

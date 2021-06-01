@@ -13,17 +13,27 @@ import java.sql.ResultSet;
 public class TablaTelefono extends javax.swing.JFrame {
 
     Connection conexion;
-    String pass="postgres";
-    String user ="postgres";
+    String pass;
+    String user;
     DefaultTableModel modelo = new DefaultTableModel();
     int idSucursalAct;
     int idTelefono;
+    public boolean permiso = true;
+    
     public TablaTelefono() {
         initComponents();
+        
+    }
+    
+    public void setUserYCon(String _user,String _pass)
+    {
+        pass = _pass;
+        user = _user;
+         
         estableceConexion();
         modelo_tabla();
         fillTabla();
-        agregaComboBoxSucursales();
+        agregaComboBoxSucursales();         
     }
 
    
@@ -42,7 +52,12 @@ public class TablaTelefono extends javax.swing.JFrame {
         JBModTel = new javax.swing.JButton();
         JBElimTel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabelTel.setText("TABLA DE TELEFONO");
 
@@ -202,6 +217,13 @@ public class TablaTelefono extends javax.swing.JFrame {
        
     }//GEN-LAST:event_JBModTelActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        Home vH = new Home();
+        vH.setVisible(true);
+        this.dispose(); 
+    }//GEN-LAST:event_formWindowClosing
+
      public void obtenIDSucursalComboBox()
     {  
         String it = (String)JCboxSuc.getSelectedItem();
@@ -217,7 +239,8 @@ public class TablaTelefono extends javax.swing.JFrame {
             rs.close();
             at.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No pudimos econtrar la sucursal a agregar");
+            JOptionPane.showMessageDialog(null, "No pudimos econtrar la sucursal a agregar "+ e);
+            permiso = false;
         }
     }
      public void estableceConexion()
@@ -264,7 +287,8 @@ public class TablaTelefono extends javax.swing.JFrame {
             rs.close();
             at.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No pudimos actualizar tu tabla");
+            JOptionPane.showMessageDialog(null, "No pudimos actualizar tu tabla: "+e);
+            permiso = false;
         }
     }
      
@@ -288,6 +312,7 @@ public class TablaTelefono extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No pudimos agregar los items");
+            permiso = false;
         }
     }
     /**
