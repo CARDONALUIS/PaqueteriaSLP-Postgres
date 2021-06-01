@@ -18,16 +18,25 @@ public class Personal extends javax.swing.JFrame {
     Connection conexion;
     String pass="Nada2254";
     String user ="postgres";
+    public String passGlobal ="Algo";
+    public String userGlobal ="Algo";
     DefaultTableModel modelo = new DefaultTableModel();
     int idPersonal;
     
-    
+        
     public Personal() {
-        initComponents();
+        initComponents();               
+    }
+    
+    public void setUserYCon(String _user,String _pass)
+    {
+        pass = _pass;
+        user = _user;
+         
         estableceConexion();
         modelo_tabla();
         fillTabla();
-        limpiaControlesYAddLlaves();
+        limpiaControlesYAddLlaves(); 
     }
     
     public void estableceConexion()
