@@ -140,9 +140,19 @@ public class Home extends javax.swing.JFrame {
         jMenu4.setText("Ruta");
 
         jMenuItem9.setText("Ruta");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem9);
 
         jMenuItem10.setText("AsignacionDeRutas");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem10);
 
         jMenuBar1.add(jMenu4);
@@ -233,7 +243,6 @@ public class Home extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-
     private void VentanaPago(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentanaPago
 
         Pago vPag = new Pago();
@@ -245,6 +254,13 @@ public class Home extends javax.swing.JFrame {
     private void JTContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTContraseñaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_JTContraseñaActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        TablaRuta tRuta = new TablaRuta();
+        tRuta.setVisible(true);
+        tRuta.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void btnViewCamionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewCamionActionPerformed
         Camion vAsi = new Camion();
@@ -259,6 +275,14 @@ public class Home extends javax.swing.JFrame {
         vAsi.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        AsignacionRuta vRuta = new AsignacionRuta();
+        vRuta.setVisible(true);
+        vRuta.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
 
     /**
      * @param args the command line arguments
