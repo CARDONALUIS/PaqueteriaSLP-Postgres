@@ -16,7 +16,7 @@ import java.util.Date;
 
 public class Personal extends javax.swing.JFrame {
     Connection conexion;
-    String pass="postgres";
+    String pass="Nada2254";
     String user ="postgres";
     public String passGlobal ="Algo";
     public String userGlobal ="Algo";
