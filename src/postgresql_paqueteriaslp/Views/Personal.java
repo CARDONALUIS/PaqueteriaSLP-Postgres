@@ -15,13 +15,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Personal extends javax.swing.JFrame {
+    Home a = new Home();
     Connection conexion;
-    String pass="Nada2254";
-    String user ="postgres";
-    public String passGlobal ="Algo";
-    public String userGlobal ="Algo";
+    String pass;
+    String user;
     DefaultTableModel modelo = new DefaultTableModel();
     int idPersonal;
+    public boolean permiso = true;
     
         
     public Personal() {
@@ -33,18 +33,19 @@ public class Personal extends javax.swing.JFrame {
         pass = _pass;
         user = _user;
          
-        estableceConexion();
+        estableceConexion();        
         modelo_tabla();
         fillTabla();
         limpiaControlesYAddLlaves(); 
+        
     }
     
     public void estableceConexion()
     {
         try {
-            conexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/paqueteriaSLP",user, pass);            
+            conexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/paqueteriaSLP",user, pass);           
         }catch(SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al establecer conexion!!!"+ ex);
+            JOptionPane.showMessageDialog(null, "Error al establecer conexion!!!"+ ex);                         
         }
     }
     
@@ -72,6 +73,7 @@ public class Personal extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No pudimos agregar los items");
+            permiso = false;
         }
     }
     
@@ -136,6 +138,7 @@ public class Personal extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No pudimos actualizar tu tabla "+ e);
+            permiso = false;
         }
     }
     
@@ -165,7 +168,6 @@ public class Personal extends javax.swing.JFrame {
         JTNumCelular = new javax.swing.JTextField();
         JTNss = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        JCNacimiento = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
         JTDireccion = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -177,6 +179,7 @@ public class Personal extends javax.swing.JFrame {
         JBInsertar = new javax.swing.JButton();
         JBEliminar = new javax.swing.JButton();
         JBActualizar = new javax.swing.JButton();
+        JCNacimiento = new com.toedter.calendar.JDateChooser();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -266,7 +269,7 @@ public class Personal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
-                        .addComponent(JCNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(JCNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -361,7 +364,7 @@ public class Personal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(JCNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

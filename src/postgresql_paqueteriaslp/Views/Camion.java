@@ -16,14 +16,22 @@ import java.util.Date;
 
 public class Camion extends javax.swing.JFrame {
     Connection conexion;
-    String pass="Nada2254";
-    String user ="postgres";
+    String pass;
+    String user;
     DefaultTableModel modelo = new DefaultTableModel();
     int idCamion;
+    public boolean permiso = true;
     
     public Camion() {
-        initComponents();
-        estableceConexion();
+        initComponents();        
+    }
+    
+    public void setUserYCon(String _user,String _pass)
+    {
+        pass = _pass;
+        user = _user;
+         
+        estableceConexion();  
         modelo_tabla();
         fillTabla();
         agregaComboBox();
@@ -32,6 +40,7 @@ public class Camion extends javax.swing.JFrame {
         PanelComprado.setVisible(false);
         PanelComprado.setLocation(PanelArrendado.getLocation());
         Point p = PanelArrendado.getLocation();
+        
     }
     
     public void estableceConexion()
@@ -40,6 +49,7 @@ public class Camion extends javax.swing.JFrame {
             conexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/paqueteriaSLP",user, pass);            
         }catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al establecer conexion!!!"+ ex);
+            permiso = false;
         }
     }
     
@@ -74,6 +84,7 @@ public class Camion extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            permiso = false;
         }
     }
     
@@ -95,6 +106,7 @@ public class Camion extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            permiso = false;
         }
     }
     
@@ -115,6 +127,7 @@ public class Camion extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            permiso = false;
         }
     }
     
@@ -177,6 +190,7 @@ public class Camion extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            permiso = false;
         }
     }
     

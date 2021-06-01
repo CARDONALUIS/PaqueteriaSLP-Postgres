@@ -13,17 +13,27 @@ import java.sql.ResultSet;
 
 public class HorarioPersonal extends javax.swing.JFrame {
     Connection conexion;
-    String pass="postgres";
-    String user ="postgres";
+    String pass;
+    String user;
     DefaultTableModel modelo = new DefaultTableModel();
     int idPersonal;
+    public boolean permiso = true;
     
     public HorarioPersonal() {
         initComponents();
+        
+    }
+    
+    public void setUserYCon(String _user,String _pass)
+    {
+        pass = _pass;
+        user = _user;
+         
         estableceConexion();
         modelo_tabla();
         fillTabla();
-        limpiaControlesYAddLlaves();
+        limpiaControlesYAddLlaves(); 
+        
     }
     
     public void estableceConexion()
@@ -68,6 +78,7 @@ public class HorarioPersonal extends javax.swing.JFrame {
             at.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No pudimos agregar los items");
+            permiso = false;
         }
     }
     
@@ -98,7 +109,8 @@ public class HorarioPersonal extends javax.swing.JFrame {
             rs.close();
             at.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No pudimos actualizar tu tabla");
+            JOptionPane.showMessageDialog(null, "No pudimos actualizar tu tabla "+e);
+            permiso = false;
         }
     }
     
@@ -211,7 +223,8 @@ public class HorarioPersonal extends javax.swing.JFrame {
             rs.close();
             at.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No pudimos econtrar la paersona a agregar");
+            JOptionPane.showMessageDialog(null, "No pudimos econtrar la personas a agregar");
+            permiso = false;
         }
         
 
