@@ -21,9 +21,30 @@ public class Camion extends javax.swing.JFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     int idCamion;
     public boolean permiso = true;
+    String rol;
     
     public Camion() {
         initComponents();        
+    }
+    
+    public void getRoleofUser(){
+        String datos[] = new String[2];
+        try {
+            Statement at = conexion.createStatement();
+            ResultSet rs = at.executeQuery("SELECT r.rolname, ARRAY(SELECT b.rolname FROM pg_catalog.pg_auth_members m JOIN pg_catalog.pg_roles b ON (m.roleid = b.oid) " +
+                "WHERE m.member = r.oid) as memberof FROM pg_catalog.pg_roles r WHERE r.rolname = "+"'"+user+"'"+"");
+            while(rs.next())
+            {
+                datos[0] = rs.getString("rolname");
+                datos[1] = rs.getString("memberof");
+                rol = datos[1];
+            }
+            rs.close();
+            at.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No pudimos obtener el rol: "+e);
+            permiso = false;
+        }
     }
     
     public void setUserYCon(String _user,String _pass)
@@ -34,6 +55,8 @@ public class Camion extends javax.swing.JFrame {
         estableceConexion();  
         modelo_tabla();
         fillTabla();
+        getRoleofUser();
+        desactivaComponentes();
         agregaComboBox();
         btnEditar.setVisible(false);
         PanelArrendado.setVisible(false);
@@ -41,6 +64,35 @@ public class Camion extends javax.swing.JFrame {
         PanelComprado.setLocation(PanelArrendado.getLocation());
         Point p = PanelArrendado.getLocation();
         
+    }
+    public void desactivaComponentes()
+    {
+        switch(rol){
+            case "{camionero}":
+            {
+                btnAdd.setEnabled(false);
+                btnDelete.setEnabled(false);
+                txtPlaca.setEnabled(false);
+                ddlSucursal.setEnabled(false);
+                txtModelo.setEnabled(false);
+                txtMarca.setEnabled(false);
+                ntxtAno.setEnabled(false);
+                btnArrendado.setEnabled(false);
+                btnComprado.setEnabled(false);
+            }
+            case "{secretario}":
+            {
+                btnAdd.setEnabled(false);
+                btnDelete.setEnabled(false);
+                txtPlaca.setEnabled(false);
+                ddlSucursal.setEnabled(false);
+                txtModelo.setEnabled(false);
+                txtMarca.setEnabled(false);
+                ntxtAno.setEnabled(false);
+                btnArrendado.setEnabled(false);
+                btnComprado.setEnabled(false);
+            }
+        }
     }
     
     public void estableceConexion()

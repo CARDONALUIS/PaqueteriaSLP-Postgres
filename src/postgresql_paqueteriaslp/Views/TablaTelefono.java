@@ -19,10 +19,31 @@ public class TablaTelefono extends javax.swing.JFrame {
     int idSucursalAct;
     int idTelefono;
     public boolean permiso = true;
+    String rol;
     
     public TablaTelefono() {
         initComponents();
         
+    }
+    
+    public void getRoleofUser(){
+        String datos[] = new String[2];
+        try {
+            Statement at = conexion.createStatement();
+            ResultSet rs = at.executeQuery("SELECT r.rolname, ARRAY(SELECT b.rolname FROM pg_catalog.pg_auth_members m JOIN pg_catalog.pg_roles b ON (m.roleid = b.oid) " +
+                "WHERE m.member = r.oid) as memberof FROM pg_catalog.pg_roles r WHERE r.rolname = "+"'"+user+"'"+"");
+            while(rs.next())
+            {
+                datos[0] = rs.getString("rolname");
+                datos[1] = rs.getString("memberof");
+                rol = datos[1];
+            }
+            rs.close();
+            at.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No pudimos obtener el rol: "+e);
+            permiso = false;
+        }
     }
     
     public void setUserYCon(String _user,String _pass)
@@ -33,7 +54,31 @@ public class TablaTelefono extends javax.swing.JFrame {
         estableceConexion();
         modelo_tabla();
         fillTabla();
+        getRoleofUser();
+        desactivaComponentes();
         agregaComboBoxSucursales();         
+    }
+    
+    public void desactivaComponentes()
+    {
+        switch(rol){
+            case "{secretario}":
+            {
+                JBInsertarTel.setEnabled(false);
+                JBModTel.setEnabled(false);
+                JBElimTel.setEnabled(false);
+                JCboxSuc.setEnabled(false);
+                JTextTelefono.setEnabled(false);
+            }
+            case "{camionero}":
+            {
+                JBInsertarTel.setEnabled(false);
+                JBModTel.setEnabled(false);
+                JBElimTel.setEnabled(false);
+                JCboxSuc.setEnabled(false);
+                JTextTelefono.setEnabled(false);
+            }
+        }
     }
 
    

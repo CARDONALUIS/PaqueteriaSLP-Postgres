@@ -17,23 +17,64 @@ public class TablaSucursal extends javax.swing.JFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     int idSucursalAct;
     public boolean permiso = true;
+    String rol;
 
     public TablaSucursal() {
         initComponents();
-         
-
+    }
+    
+    public void getRoleofUser(){
+        String datos[] = new String[2];
+        try {
+            Statement at = conexion.createStatement();
+            ResultSet rs = at.executeQuery("SELECT r.rolname, ARRAY(SELECT b.rolname FROM pg_catalog.pg_auth_members m JOIN pg_catalog.pg_roles b ON (m.roleid = b.oid) " +
+                "WHERE m.member = r.oid) as memberof FROM pg_catalog.pg_roles r WHERE r.rolname = "+"'"+user+"'"+"");
+            while(rs.next())
+            {
+                datos[0] = rs.getString("rolname");
+                datos[1] = rs.getString("memberof");
+                rol = datos[1];
+            }
+            rs.close();
+            at.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No pudimos obtener el rol: "+e);
+            permiso = false;
+        }
     }
     
     public void setUserYCon(String _user,String _pass)
     {
         pass = _pass;
-        user = _user;
-         
+        user = _user;    
         estableceConexion();
         modelo_tabla();
         fillTabla();
-        limpiaControles(); 
-        
+        getRoleofUser();
+        desactivaComponentes();
+        limpiaControles();    
+    }
+    
+    public void desactivaComponentes()
+    {
+        switch(rol){
+            case "{secretario}":
+            {
+                JBInsertar.setEnabled(false);
+                JTNombre.setEnabled(false);
+                JTDireccion.setEnabled(false);
+                JBEliminar.setEnabled(false);
+                JBActualizar.setEnabled(false);
+            }
+            case "{camionero}":
+            {
+                JBInsertar.setEnabled(false);
+                JTNombre.setEnabled(false);
+                JTDireccion.setEnabled(false);
+                JBEliminar.setEnabled(false);
+                JBActualizar.setEnabled(false);
+            }
+        }
     }
     
     public void estableceConexion()
@@ -72,7 +113,6 @@ public class TablaSucursal extends javax.swing.JFrame {
                 datos[0] = rs.getString("idsucursal");
                 datos[1] = rs.getString("nombresucursal");
                 datos[2] = rs.getString("direccion");
-
                 modelo.addRow(datos);
             }           
             rs.close();
