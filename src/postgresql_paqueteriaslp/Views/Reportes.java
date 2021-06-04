@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -30,8 +31,6 @@ public class Reportes extends javax.swing.JFrame {
     public Reportes() {
         initComponents();
         estableceConexion();
-        //modelo_tabla();
-        //modelo_tabla_Arrendado();
         rellenaCombos();
     }
     
@@ -49,6 +48,7 @@ public class Reportes extends javax.swing.JFrame {
         String datos[] = new String[3];
         JCBSucursal.removeAllItems();
         JCBTipo.removeAllItems();
+        JCBSucursales.removeAllItems();
         
         JCBTipo.addItem("Comprado");
         JCBTipo.addItem("Arrendado");
@@ -62,6 +62,7 @@ public class Reportes extends javax.swing.JFrame {
                 datos[1] = rs.getString("nombresucursal");
 
                 JCBSucursal.addItem(datos[0]+ "-" +datos[1]);
+                JCBSucursales.addItem(datos[0]+ "-" +datos[1]);
             }           
             rs.close();
             at.close();
@@ -93,6 +94,33 @@ public class Reportes extends javax.swing.JFrame {
         JTCamiones.setModel(modelo);
     }
     
+    public void modelo_tabla_Pago()
+    {
+        modelo.setColumnCount(0);
+                
+        modelo.addColumn("Sucursal");
+        modelo.addColumn("Monto total pagado");
+       
+        JTPagos.setModel(modelo);
+    }
+    
+    public String obtenFechaInicio()
+    {
+        String año = String.valueOf(JCInicio.getCalendar().get(Calendar.YEAR));
+        String mes = String.valueOf(JCInicio.getCalendar().get(Calendar.MARCH));
+        String dia = String.valueOf(JCInicio.getCalendar().get(Calendar.DAY_OF_MONTH));
+                
+        return (año+"-"+mes+"-"+dia);
+    }
+    
+    public String obtenFechaFin()
+    {
+        String año = String.valueOf(JCFin.getCalendar().get(Calendar.YEAR));
+        String mes = String.valueOf(JCFin.getCalendar().get(Calendar.MARCH));
+        String dia = String.valueOf(JCFin.getCalendar().get(Calendar.DAY_OF_MONTH) + 1);
+                
+        return (año+"-"+mes+"-"+dia);
+    }
     
     
     /**
@@ -114,7 +142,13 @@ public class Reportes extends javax.swing.JFrame {
         JTCamiones = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        JTPagos = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        JCBSucursales = new javax.swing.JComboBox<>();
+        JCInicio = new com.toedter.calendar.JDateChooser();
+        jLabel6 = new javax.swing.JLabel();
+        JCFin = new com.toedter.calendar.JDateChooser();
+        jLabel7 = new javax.swing.JLabel();
         JBEjecutaC2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -154,9 +188,9 @@ public class Reportes extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(JTCamiones);
 
-        jLabel4.setText("CONSULTA 2");
+        jLabel4.setText("CONSULTA 2 Pagos");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        JTPagos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -167,7 +201,15 @@ public class Reportes extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(JTPagos);
+
+        jLabel5.setText("Sucursal");
+
+        JCBSucursales.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel6.setText("fecha Inicio");
+
+        jLabel7.setText("fecha Fin");
 
         JBEjecutaC2.setText("Ejecutar");
         JBEjecutaC2.addActionListener(new java.awt.event.ActionListener() {
@@ -181,32 +223,50 @@ public class Reportes extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(224, 224, 224)
-                                    .addComponent(JBEjecutaC1))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(JCBSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jLabel3)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(JCBTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addComponent(jLabel4)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(221, 221, 221)
-                            .addComponent(JBEjecutaC2))))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(224, 224, 224)
+                                        .addComponent(JBEjecutaC1))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(JCBSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jLabel3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(JCBTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jLabel4)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(226, 226, 226)
+                                .addComponent(JBEjecutaC2)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(JCBSucursales, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)
+                        .addGap(14, 14, 14)
+                        .addComponent(JCInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JCFin, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,11 +285,20 @@ public class Reportes extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(JCBSucursales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JCInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(JCFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
                 .addComponent(JBEjecutaC2)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -297,6 +366,38 @@ public class Reportes extends javax.swing.JFrame {
 
     private void JBEjecutaC2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBEjecutaC2ActionPerformed
         // TODO add your handling code here:
+        modelo.setRowCount(0);
+        
+        String datos[] = new String[3];
+        
+        String idSucursal = ((String)JCBSucursales.getSelectedItem()).substring(0, 1);        
+                            
+        String fechaInicio = obtenFechaInicio();
+        
+        String fechaFin = obtenFechaFin();
+        
+        JOptionPane.showMessageDialog(null, "Fecha Inicio "+fechaInicio);
+        
+        JOptionPane.showMessageDialog(null, "Fecha Fin "+fechaFin);
+        
+        modelo_tabla_Pago();
+        try {
+         Statement at = conexion.createStatement();
+         ResultSet rs = at.executeQuery("SELECT *, COALESCE((SELECT SUM(monto) FROM paqueteria.pago T1 WHERE T0.idsucursal = T1.idsucursal AND " +
+                                    "fechainicioperiodo >= '"+obtenFechaInicio()+"' AND fechafinperiodo <= '"+obtenFechaFin()+"'),0) " +
+                                    "as montoPago FROM paqueteria.sucursal T0 WHERE T0.idsucursal = "+idSucursal+" ");
+         while(rs.next())
+         {
+             datos[0] = rs.getString("nombresucursal");
+             datos[1] = rs.getString("montopago");
+
+             modelo.addRow(datos);
+         }           
+         rs.close();
+         at.close();
+         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "No pudimos obtener los datos");
+         }                       
     }//GEN-LAST:event_JBEjecutaC2ActionPerformed
 
     /**
@@ -338,14 +439,20 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JButton JBEjecutaC1;
     private javax.swing.JButton JBEjecutaC2;
     private javax.swing.JComboBox<String> JCBSucursal;
+    private javax.swing.JComboBox<String> JCBSucursales;
     private javax.swing.JComboBox<String> JCBTipo;
+    private com.toedter.calendar.JDateChooser JCFin;
+    private com.toedter.calendar.JDateChooser JCInicio;
     private javax.swing.JTable JTCamiones;
+    private javax.swing.JTable JTPagos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
