@@ -54,7 +54,7 @@ public class Home extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Contraseña:");
 
-        JTUsuario.setText("arturo");
+        JTUsuario.setText("gerente1");
 
         JTContraseña.setText("arturo123");
 

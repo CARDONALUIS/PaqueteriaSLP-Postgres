@@ -25,6 +25,7 @@ public class Reportes extends javax.swing.JFrame {
     String user = "postgres";
     Connection conexion;
     DefaultTableModel modelo = new DefaultTableModel();
+    DefaultTableModel modeloconsulta2 = new DefaultTableModel();
     /**
      * Creates new form Reportes
      */
@@ -96,28 +97,28 @@ public class Reportes extends javax.swing.JFrame {
     
     public void modelo_tabla_Pago()
     {
-        modelo.setColumnCount(0);
+        modeloconsulta2.setColumnCount(0);
                 
-        modelo.addColumn("Sucursal");
-        modelo.addColumn("Monto total pagado");
+        modeloconsulta2.addColumn("Sucursal");
+        modeloconsulta2.addColumn("Monto total pagado");
        
-        JTPagos.setModel(modelo);
+        JTPagos.setModel(modeloconsulta2);
     }
     
     public String obtenFechaInicio()
     {
-        String año = String.valueOf(JCInicio.getCalendar().get(Calendar.YEAR));
-        String mes = String.valueOf(JCInicio.getCalendar().get(Calendar.MARCH));
-        String dia = String.valueOf(JCInicio.getCalendar().get(Calendar.DAY_OF_MONTH));
+        int año = JCInicio.getCalendar().get(Calendar.YEAR);
+        int mes = JCInicio.getCalendar().get(Calendar.MARCH)+1;
+        int dia = JCInicio.getCalendar().get(Calendar.DAY_OF_MONTH);
                 
         return (año+"-"+mes+"-"+dia);
     }
     
     public String obtenFechaFin()
     {
-        String año = String.valueOf(JCFin.getCalendar().get(Calendar.YEAR));
-        String mes = String.valueOf(JCFin.getCalendar().get(Calendar.MARCH));
-        String dia = String.valueOf(JCFin.getCalendar().get(Calendar.DAY_OF_MONTH) + 1);
+        int año = JCFin.getCalendar().get(Calendar.YEAR);
+        int mes = JCFin.getCalendar().get(Calendar.MARCH)+1;
+        int dia = JCFin.getCalendar().get(Calendar.DAY_OF_MONTH);
                 
         return (año+"-"+mes+"-"+dia);
     }
@@ -158,6 +159,7 @@ public class Reportes extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("CONSULTA 1 CAMIONES");
 
         JCBSucursal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -188,7 +190,8 @@ public class Reportes extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(JTCamiones);
 
-        jLabel4.setText("CONSULTA 2 Pagos");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setText("CONSULTA 2 PAGOS");
 
         JTPagos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -257,16 +260,16 @@ public class Reportes extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel6)
                         .addGap(14, 14, 14)
-                        .addComponent(JCInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JCInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JCFin, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addGap(57, 57, 57)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,7 +369,7 @@ public class Reportes extends javax.swing.JFrame {
 
     private void JBEjecutaC2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBEjecutaC2ActionPerformed
         // TODO add your handling code here:
-        modelo.setRowCount(0);
+        modeloconsulta2.setRowCount(0);
         
         String datos[] = new String[3];
         
@@ -375,10 +378,6 @@ public class Reportes extends javax.swing.JFrame {
         String fechaInicio = obtenFechaInicio();
         
         String fechaFin = obtenFechaFin();
-        
-        JOptionPane.showMessageDialog(null, "Fecha Inicio "+fechaInicio);
-        
-        JOptionPane.showMessageDialog(null, "Fecha Fin "+fechaFin);
         
         modelo_tabla_Pago();
         try {
@@ -391,7 +390,7 @@ public class Reportes extends javax.swing.JFrame {
              datos[0] = rs.getString("nombresucursal");
              datos[1] = rs.getString("montopago");
 
-             modelo.addRow(datos);
+             modeloconsulta2.addRow(datos);
          }           
          rs.close();
          at.close();
